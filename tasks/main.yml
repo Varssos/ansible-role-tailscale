@@ -8,9 +8,11 @@
 - name: Install tailscale
   ansible.builtin.shell: "curl -fsSL {{ tailscale_install_script_url }} | sh"
   become: true
+  changed_when: true
   when: tailscale_installed.rc != 0
 
 - name: Login to tailscale network
   ansible.builtin.shell: "tailscale up --auth-key={{ tailscale_auth_key }}"
   become: true
+  no_log: true  # prevent auth key from appearing in logs and process list
   when: tailscale_auth_key != ''
