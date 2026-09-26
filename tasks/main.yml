@@ -6,6 +6,8 @@
   changed_when: false
 
 - name: Install tailscale
+  # Uses Tailscale's official install script (HTTPS, official domain, runs once — gated above).
+  # No stable checksum is published since the script is updated frequently by upstream.
   ansible.builtin.shell: "curl -fsSL {{ tailscale_install_script_url }} | sh"
   become: true
   changed_when: true
